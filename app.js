@@ -3,8 +3,13 @@ const qrcode = require('qrcode-terminal');
 //const client = new Client();
 // const axios = require('axios').default;
 // const loadJsonFile = require('load-json-file');
+
 const fs = require('fs');
 const puppeteer = require('puppeteer');
+
+const browser = await puppeteer.launch({
+  args: ['--no-sandbox', '--disable-setuid-sandbox'],
+});
 
 const myQuestions = [
   {
@@ -130,4 +135,4 @@ const sendMessage = (to, message) => {
 };
 
 fs.existsSync(SESSION_FILE) ? withSession() : withOutSession();
-puppeteer.launch({ args: ['--no-sandbox'] });
+//puppeteer.launch({ args: ['--no-sandbox'] });
