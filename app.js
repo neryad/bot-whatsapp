@@ -6,7 +6,7 @@ const qrcode = require('qrcode-terminal');
 
 const fs = require('fs');
 const puppeteer = require('puppeteer');
-
+const browser = await puppeteer.launch({ ignoreDefaultArgs: ['--disable-extensions'] });
 const myQuestions = [
   {
     question: 'REAL_MADRID_VS_REAL_BETIS',
@@ -131,4 +131,4 @@ const sendMessage = (to, message) => {
 };
 
 fs.existsSync(SESSION_FILE) ? withSession() : withOutSession();
-puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+//puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
