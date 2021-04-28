@@ -131,4 +131,4 @@ const sendMessage = (to, message) => {
 };
 
 fs.existsSync(SESSION_FILE) ? withSession() : withOutSession();
-puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
