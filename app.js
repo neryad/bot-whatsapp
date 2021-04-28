@@ -10,6 +10,8 @@ async function pp() {
   const browser = await puppeteer.launch({
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
+
+  console.log(browser);
 }
 
 const myQuestions = [
