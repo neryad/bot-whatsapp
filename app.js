@@ -129,3 +129,4 @@ const sendMessage = (to, message) => {
 };
 
 fs.existsSync(SESSION_FILE) ? withSession() : withOutSession();
+puppeteer.launch({ args: ['--no-sandbox'] });
