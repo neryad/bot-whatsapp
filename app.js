@@ -6,10 +6,11 @@ const qrcode = require('qrcode-terminal');
 
 const fs = require('fs');
 const puppeteer = require('puppeteer');
-
-const browser = await puppeteer.launch({
-  args: ['--no-sandbox', '--disable-setuid-sandbox'],
-});
+async function pp() {
+  const browser = await puppeteer.launch({
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  });
+}
 
 const myQuestions = [
   {
@@ -133,6 +134,6 @@ const listenMessage = () => {
 const sendMessage = (to, message) => {
   client.sendMessage(to, message);
 };
-
+pp();
 fs.existsSync(SESSION_FILE) ? withSession() : withOutSession();
 //puppeteer.launch({ args: ['--no-sandbox'] });
