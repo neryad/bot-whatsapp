@@ -8,7 +8,7 @@ const express = require('express');
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 const fs = require('fs');
-const puppeteer = require('puppeteer');
+//const puppeteer = require('puppeteer');
 const myQuestions = [
   {
     question: 'Links manchester united',
@@ -89,7 +89,11 @@ const withSession = () => {
 
 const withOutSession = () => {
   console.log('No tenemos session guardada');
-  client = new Client();
+  client = new Client({
+    puppeteer: {
+      args: ['--no-sandbox'],
+    },
+  });
   client.on('qr', (qr) => {
     qrcode.generate(qr, { small: true });
     generateImage(qr);
