@@ -11,7 +11,7 @@ const fs = require('fs');
 //const puppeteer = require('puppeteer');
 const myQuestions = [
   {
-    question: 'Links manchester united',
+    question: 'links manchester united',
     answers: `Manchester United  🆚 AS ROMA
     ⏰ 3:00 PM
     🏟 Old Trafford
@@ -47,7 +47,7 @@ let sessionData;
 function filterItems(query) {
   return myQuestions
     .filter(function (el) {
-      return el.question == query;
+      return el.question.toLowerCase() == query.toLowerCase();
     })
     .map(function (el) {
       console.log('valido');
@@ -134,10 +134,6 @@ const listenMessage = () => {
     sendMessage(from, resp.toString());
   });
 };
-
-// const sendMessage = (to, message) => {
-//   client.sendMessage(to, message);
-// };
 
 const generateImage = (base64) => {
   let qr_svg = qr.image(base64, { type: 'svg', margin: 4 });
