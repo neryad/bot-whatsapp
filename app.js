@@ -8,7 +8,7 @@ const express = require('express');
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 const fs = require('fs');
-//const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer');
 const myQuestions = [
   {
     question: 'Links manchester united',
