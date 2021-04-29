@@ -63,7 +63,7 @@ function getAnswer(ask) {
     console.log(error);
   }
 }
-
+app.set('port', process.env.PORT || 3000);
 const withSession = () => {
   console.log('Validando con whatsapp......');
   sessionData = require(SESSION_FILE);
@@ -124,7 +124,7 @@ const sendMessage = (to, message) => {
 const generateImage = (base64) => {
   let qr_svg = qr.image(base64, { type: 'svg', margin: 4 });
   qr_svg.pipe(require('fs').createWriteStream('qr-code.svg'));
-  console.log('http:localhost:9000/qr');
+  console.log(`'http:localhost:${app.get('port')}/qr`);
 };
 
 fs.existsSync(SESSION_FILE) ? withSession() : withOutSession();
@@ -134,6 +134,6 @@ app.get('/qr', (req, res) => {
   fs.createReadStream('./qr-code.svg').pipe(res);
 });
 
-app.listen(9000, () => {
-  console.log('Server ready');
+app.listen(app.get('port'), () => {
+  console.log(`Server ready on port : ${app.get('port')}`);
 });
