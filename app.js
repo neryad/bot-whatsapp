@@ -1,55 +1,40 @@
 const { Client } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
+const express = require('express');
 //const client = new Client();
 // const axios = require('axios').default;
 // const loadJsonFile = require('load-json-file');
-
+const app = express();
 const fs = require('fs');
-const puppeteer = require('puppeteer');
-//const browser = await puppeteer.launch({ ignoreDefaultArgs: ['--disable-extensions'] });
-puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+//const puppeteer = require('puppeteer');
 const myQuestions = [
   {
-    question: 'REAL_MADRID_VS_REAL_BETIS',
-    answers: `⚪ ⚪ REAL MADRID 🆚 REAL BETIS 🟢 ⚪
+    question: 'Links manchester united',
+    answers: `Manchester United  🆚 AS ROMA
     ⏰ 3:00 PM
-    🏟️ Estadio Di Stefano
-    👮🏻 Arbrito: Xavier Estrada
+    🏟 Old Trafford
+    👮🏻 Arbrito: Carlos del Cerro
 
     Links Disponibles :
-    ⮕ https://youtu.be/JZPuxZLvNPk 📲 💻
-    ⮕ https://youtu.be/JZPuxZLvNPk 📲 💻
-    ⮕ https://youtu.be/JZPuxZLvNPk 📲 💻
+    ⮕ http://www.ovostreams.com/manchester-utd-vs-roma.php  📲 💻
+    ⮕ http://www.ovostreams.com/manchester-utd-vs-roma.php 📲 💻
+    ⮕ http://www.ovostreams.com/manchester-utd-vs-roma.php  📲 💻
 
-    🏳️ A POR ELLOS`,
+    VAMOS!`,
   },
   {
-    question: 'wawa',
-    answers: `⚪ ⚪ REAL wawa 🆚 REAL MADRID 🟢 ⚪
+    question: 'links Roma',
+    answers: `Manchester United  🆚 AS ROMA
     ⏰ 3:00 PM
-    🏟️ Estadio Di Stefano
-    👮🏻 Arbrito: Xavier Estrada
+    🏟 Old Trafford
+    👮🏻 Arbrito: Carlos del Cerro
 
     Links Disponibles :
-    ⮕ https://youtu.be/JZPuxZLvNPk 📲 💻
-    ⮕ https://youtu.be/JZPuxZLvNPk 📲 💻
-    ⮕ https://youtu.be/JZPuxZLvNPk 📲 💻
+    ⮕ http://www.ovostreams.com/manchester-utd-vs-roma.php  📲 💻
+    ⮕ http://www.ovostreams.com/manchester-utd-vs-roma.php 📲 💻
+    ⮕ http://www.ovostreams.com/manchester-utd-vs-roma.php  📲 💻
 
-    🏳️ A POR ELLOS`,
-  },
-  {
-    question: 'REAL_BARCELONA_VS_BARCA',
-    answers: `⚪ ⚪ REAL BARCELONA 🆚 BARCA 🟢 ⚪
-    ⏰ 3:00 PM
-    🏟️ Estadio Di Stefano
-    👮🏻 Arbrito: Xavier Estrada
-
-    Links Disponibles :
-    ⮕ https://youtu.be/JZPuxZLvNPk 📲 💻
-    ⮕ https://youtu.be/JZPuxZLvNPk 📲 💻
-    ⮕ https://youtu.be/JZPuxZLvNPk 📲 💻
-
-    🏳️ A POR ELLOS`,
+    VAMOS!`,
   },
 ];
 
@@ -84,6 +69,9 @@ const withSession = () => {
 
   client = new Client({
     session: sessionData,
+    puppeteer: {
+      args: ['--no-sandbox'],
+    },
   });
 
   client.on('ready', () => {
@@ -132,4 +120,3 @@ const sendMessage = (to, message) => {
 };
 
 fs.existsSync(SESSION_FILE) ? withSession() : withOutSession();
-//puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
