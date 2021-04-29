@@ -63,7 +63,7 @@ function getAnswer(ask) {
     console.log(error);
   }
 }
-app.set('port', process.env.PORT || 3000);
+
 const withSession = () => {
   console.log('Validando con whatsapp......');
   sessionData = require(SESSION_FILE);
@@ -132,7 +132,7 @@ const generateImage = (base64) => {
 };
 
 fs.existsSync(SESSION_FILE) ? withSession() : withOutSession();
-
+app.set('port', process.env.PORT || 3000);
 app.get('/qr', (req, res) => {
   res.writeHead(200, { 'content-type': 'image/svg+xml' });
   fs.createReadStream('./qr-code.svg').pipe(res);
