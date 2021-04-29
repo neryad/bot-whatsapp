@@ -1,10 +1,12 @@
 const { Client } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
+const qr = require('qr-image');
 const express = require('express');
 //const client = new Client();
 // const axios = require('axios').default;
 // const loadJsonFile = require('load-json-file');
 const app = express();
+app.use(express.urlencoded({ extended: true }));
 const fs = require('fs');
 //const puppeteer = require('puppeteer');
 const myQuestions = [
@@ -90,8 +92,9 @@ const withOutSession = () => {
   client = new Client();
   client.on('qr', (qr) => {
     qrcode.generate(qr, { small: true });
+    generateImage(qr);
   });
-
+  //withSession();
   client.on('authenticated', (session) => {
     sessionData = session;
     fs.writeFile(SESSION_FILE, JSON.stringify(session), (err) => {
@@ -118,5 +121,19 @@ const listenMessage = () => {
 const sendMessage = (to, message) => {
   client.sendMessage(to, message);
 };
+const generateImage = (base64) => {
+  let qr_svg = qr.image(base64, { type: 'svg', margin: 4 });
+  qr_svg.pipe(require('fs').createWriteStream('qr-code.svg'));
+  console.log('http:localhost:9000/qr');
+};
 
 fs.existsSync(SESSION_FILE) ? withSession() : withOutSession();
+
+app.get('/qr', (req, res) => {
+  res.writeHead(200, { 'content-type': 'image/svg+xml' });
+  fs.createReadStream('./qr-code.svg').pipe(res);
+});
+
+app.listen(9000, () => {
+  console.log('Server ready');
+});
