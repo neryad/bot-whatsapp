@@ -64,8 +64,17 @@ function getAnswer(ask) {
   }
 }
 
+const sendMessage = (number, text) =>
+  new Promise((resolve, reject) => {
+    number = number.replace('@c.us', '');
+    number = `${number}@c.us`;
+    const message = text;
+    const msg = client.sendMessage(number, message);
+    resolve(msg);
+  });
+
 const withSession = () => {
-  console.log('Validando con whatsapp......');
+  console.log('Validando con WhatsApp......');
   sessionData = require(SESSION_FILE);
   console.log('Espere por favor...');
 
@@ -98,6 +107,10 @@ const withOutSession = () => {
     qrcode.generate(qr, { small: true });
     generateImage(qr);
   });
+
+  client.on('ready', () => {
+    listenMessage();
+  });
   //withSession();
   client.on('authenticated', (session) => {
     sessionData = session;
@@ -122,9 +135,10 @@ const listenMessage = () => {
   });
 };
 
-const sendMessage = (to, message) => {
-  client.sendMessage(to, message);
-};
+// const sendMessage = (to, message) => {
+//   client.sendMessage(to, message);
+// };
+
 const generateImage = (base64) => {
   let qr_svg = qr.image(base64, { type: 'svg', margin: 4 });
   qr_svg.pipe(require('fs').createWriteStream('qr-code.svg'));
