@@ -44,7 +44,15 @@ const SESSION_FILE = './session.json';
 let client;
 let sessionData;
 
-function filterItems(query) {
+function filterItems(query = 'asd') {
+  let test;
+  // fetch('./wawa.json')
+  // .then(function (res) {
+  //   return res.json();
+  // })
+  // .then(function (data) {
+  //   console.log(data);
+  // });
   return myQuestions
     .filter(function (el) {
       return el.question.toLowerCase() == query.toLowerCase();
@@ -97,6 +105,15 @@ const withSession = () => {
 };
 
 const withOutSession = () => {
+  // var myJSON = JSON.stringify(myQuestions);
+  // console.log(myJSON);
+  fetch('./wawa.json')
+    .then(function (res) {
+      return res.json();
+    })
+    .then(function (data) {
+      console.log(data);
+    });
   console.log('No tenemos session guardada');
   client = new Client({
     puppeteer: {
