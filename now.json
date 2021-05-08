@@ -1,0 +1,5 @@
+{
+  "version": 2,
+  "name": "bot-whatsapp",
+  "routes": [{ "src": "(.*)", "dest": "./app.js" }]
+}
