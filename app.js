@@ -107,13 +107,13 @@ const withSession = () => {
 const withOutSession = () => {
   // var myJSON = JSON.stringify(myQuestions);
   // console.log(myJSON);
-  fetch('./wawa.json')
-    .then(function (res) {
-      return res.json();
-    })
-    .then(function (data) {
-      console.log(data);
-    });
+  // fetch('./wawa.json')
+  //   .then(function (res) {
+  //     return res.json();
+  //   })
+  //   .then(function (data) {
+  //     console.log(data);
+  //   });
   console.log('No tenemos session guardada');
   client = new Client({
     puppeteer: {
