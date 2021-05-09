@@ -105,15 +105,6 @@ const withSession = () => {
 };
 
 const withOutSession = () => {
-  // var myJSON = JSON.stringify(myQuestions);
-  // console.log(myJSON);
-  // fetch('./wawa.json')
-  //   .then(function (res) {
-  //     return res.json();
-  //   })
-  //   .then(function (data) {
-  //     console.log(data);
-  //   });
   console.log('No tenemos session guardada');
   client = new Client({
     puppeteer: {
@@ -126,6 +117,7 @@ const withOutSession = () => {
   });
 
   client.on('ready', () => {
+    console.log('cliente is ready');
     listenMessage();
   });
   //withSession();
@@ -163,6 +155,13 @@ app.set('port', process.env.PORT || 3000);
 app.get('/qr', (req, res) => {
   res.writeHead(200, { 'content-type': 'image/svg+xml' });
   fs.createReadStream('./qr-code.svg').pipe(res);
+});
+
+app.get('/', (req, res, next) => {
+  res.status(200).json({
+    ok: true,
+    menssage: 'Get Root Request successful',
+  });
 });
 
 app.listen(app.get('port'), () => {
