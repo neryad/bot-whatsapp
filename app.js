@@ -2,13 +2,10 @@ const { Client } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 const qr = require('qr-image');
 const express = require('express');
-//const client = new Client();
-// const axios = require('axios').default;
-// const loadJsonFile = require('load-json-file');
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 const fs = require('fs');
-//const puppeteer = require('puppeteer');
+
 const myQuestions = [
   {
     question: 'links manchester united',
@@ -46,13 +43,7 @@ let sessionData;
 
 function filterItems(query = 'asd') {
   let test;
-  // fetch('./wawa.json')
-  // .then(function (res) {
-  //   return res.json();
-  // })
-  // .then(function (data) {
-  //   console.log(data);
-  // });
+
   return myQuestions
     .filter(function (el) {
       return el.question.toLowerCase() == query.toLowerCase();
@@ -72,13 +63,27 @@ function getAnswer(ask) {
   }
 }
 
+const clearNumber = (number) => {
+  number = number.replace('@c.us', '');
+  number = `${number}`;
+  return number;
+};
+
 const sendMessage = (number, text) =>
   new Promise((resolve, reject) => {
     number = number.replace('@c.us', '');
+    console.log(number, 'number1');
     number = `${number}@c.us`;
+    console.log(number, 'number2');
     const message = text;
-    const msg = client.sendMessage(number, message);
-    resolve(msg);
+    // const msg = client.sendMessage(number, message);
+    //const msg = client.sendMessage(number, message);
+    client.on('message', (msg) => {
+      msg.reply(message);
+      resolve(msg);
+    });
+    // resolve(msg);
+    //clearNumber(number);
   });
 
 const withSession = () => {
@@ -135,12 +140,26 @@ const withOutSession = () => {
 
 const listenMessage = () => {
   client.on('message', (msg) => {
-    const { from, to, body } = msg;
-    let resp = getAnswer(body);
-    if (!resp || resp.length === 0) {
-      return;
+    try {
+      const { from, to, body } = msg;
+      let resp = getAnswer(body);
+
+      let cha = from.indexOf('-');
+      console.log(cha);
+      let preNum = from.slice(0, cha);
+      console.log(preNum, 'preNum');
+
+      let number = preNum.replace('@c.us', '');
+      number = `${number}@c.us`;
+      console.log(number, 'number');
+      if (!resp || resp.length === 0) {
+        return;
+      }
+      msg.reply(resp.toString());
+      //sendMessage(number, resp.toString());
+    } catch (error) {
+      console.log('Error ===> : ', error);
     }
-    sendMessage(from, resp.toString());
   });
 };
 
