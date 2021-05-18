@@ -37,29 +37,86 @@ const myQuestions = [
   },
 ];
 
+let newQuestions = [
+  {
+    question: 'links roma',
+    title: 'Manchester United 🆚 AS ROMA',
+    time: '3:00 PM',
+    place: 'Old Trafford',
+    referi: 'Carlos del Cerro',
+    links: [
+      'http://www.ovostreams.com/manchester-utd-vs-roma.php',
+      'http://www.ovostreams.com/manchester-utd-vs-roma.php',
+      'http://www.ovostreams.com/manchester-utd-vs-roma.php',
+    ],
+  },
+  {
+    question: 'links roma2',
+    title: 'Manchester United 🆚 AS ROMA',
+    time: '3:10 PM',
+    place: 'Old Trafford2',
+    referi: 'Carlos del Cerro2',
+    links: [
+      'http://www.ovostreams.com/manchester-utd-vs-roma.php',
+      'http://www.ovostreams.com/manchester-utd-vs-roma.php',
+      'http://www.ovostreams.com/manchester-utd-vs-roma.php',
+    ],
+  },
+  {
+    question: 'links roma3',
+    title: 'Manchester United 🆚 AS ROMA',
+    time: '3:20 PM',
+    place: 'Old Trafford3',
+    referi: 'Carlos del Cerro3',
+    links: [
+      'http://www.ovostreams.com/manchester-utd-vs-roma.php',
+      'http://www.ovostreams.com/manchester-utd-vs-roma.php',
+      'http://www.ovostreams.com/manchester-utd-vs-roma.php',
+    ],
+  },
+];
 const SESSION_FILE = './session.json';
 let client;
 let sessionData;
 
-function filterItems(query = 'asd') {
-  let test;
+function filterItems(query) {
+  console.log(query);
 
-  return myQuestions
+  return newQuestions
     .filter(function (el) {
       return el.question.toLowerCase() == query.toLowerCase();
     })
     .map(function (el) {
-      console.log('valido');
-      return el.answers;
+      console.log(el, 'valido');
+      return el;
     });
 }
 
 function getAnswer(ask) {
   try {
-    let answers = filterItems(ask);
-    return answers;
+    const answers = filterItems(ask);
+    var response = answers.map(function (x, i) {
+      console.log(x.links[links.length], 'i');
+      return `${x.title}
+
+      ⏰ ${x.time}
+
+      🏟 ${x.place}
+
+      👮🏻 ${x.referi}
+
+  Links Disponibles :
+
+      ⮕ ${x.links} 📲 💻
+
+  VAMOS!`;
+    });
+
+    console.log(response, 'response');
+
+    return response;
   } catch (error) {
-    console.log(error);
+    client.initialize();
   }
 }
 
