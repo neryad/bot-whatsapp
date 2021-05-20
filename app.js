@@ -181,6 +181,7 @@ const withOutSession = () => {
 };
 
 const listenMessage = () => {
+  //console.log('entre papu');
   client.on('message', (msg) => {
     try {
       const { from, to, body } = msg;
