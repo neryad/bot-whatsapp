@@ -6,37 +6,6 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 const fs = require('fs');
 
-const myQuestions = [
-  {
-    question: 'links manchester united',
-    answers: `Manchester United  🆚 AS ROMA
-    ⏰ 3:00 PM
-    🏟 Old Trafford
-    👮🏻 Arbrito: Carlos del Cerro
-
-    Links Disponibles :
-    ⮕ http://www.ovostreams.com/manchester-utd-vs-roma.php  📲 💻
-    ⮕ http://www.ovostreams.com/manchester-utd-vs-roma.php 📲 💻
-    ⮕ http://www.ovostreams.com/manchester-utd-vs-roma.php  📲 💻
-
-    VAMOS!`,
-  },
-  {
-    question: 'links Roma',
-    answers: `Manchester United  🆚 AS ROMA
-    ⏰ 3:00 PM
-    🏟 Old Trafford
-    👮🏻 Arbrito: Carlos del Cerro
-
-    Links Disponibles :
-    ⮕ http://www.ovostreams.com/manchester-utd-vs-roma.php  📲 💻
-    ⮕ http://www.ovostreams.com/manchester-utd-vs-roma.php 📲 💻
-    ⮕ http://www.ovostreams.com/manchester-utd-vs-roma.php  📲 💻
-
-    VAMOS!`,
-  },
-];
-
 let newQuestions = [
   {
     question: 'links roma',
@@ -44,11 +13,11 @@ let newQuestions = [
     time: '3:00 PM',
     place: 'Old Trafford',
     referi: 'Carlos del Cerro',
-    links: [
-      'http://www.ovostreams.com/manchester-utd-vs-roma.php',
-      'http://www.ovostreams.com/manchester-utd-vs-roma.php',
-      'http://www.ovostreams.com/manchester-utd-vs-roma.php',
-    ],
+    link1: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
+    link2: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
+    link3: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
+    link4: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
+    link5: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
   },
   {
     question: 'links roma2',
@@ -56,23 +25,35 @@ let newQuestions = [
     time: '3:10 PM',
     place: 'Old Trafford2',
     referi: 'Carlos del Cerro2',
-    links: [
-      'http://www.ovostreams.com/manchester-utd-vs-roma.php',
-      'http://www.ovostreams.com/manchester-utd-vs-roma.php',
-      'http://www.ovostreams.com/manchester-utd-vs-roma.php',
-    ],
+    link1: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
+    link2: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
+    link3: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
+    link4: '',
+    link5: '',
   },
   {
     question: 'links roma3',
     title: 'Manchester United 🆚 AS ROMA',
-    time: '3:20 PM',
-    place: 'Old Trafford3',
+    time: '3:15 PM',
+    place: 'Old Trafford2',
     referi: 'Carlos del Cerro3',
-    links: [
-      'http://www.ovostreams.com/manchester-utd-vs-roma.php',
-      'http://www.ovostreams.com/manchester-utd-vs-roma.php',
-      'http://www.ovostreams.com/manchester-utd-vs-roma.php',
-    ],
+    link1: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
+    link2: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
+    link3: '',
+    link4: '',
+    link5: '',
+  },
+  {
+    question: '',
+    title: ' 🆚 ',
+    time: '',
+    place: '',
+    referi: '',
+    link1: '',
+    link2: '',
+    link3: '',
+    link4: '',
+    link5: '',
   },
 ];
 const SESSION_FILE = './session.json';
@@ -95,28 +76,23 @@ function filterItems(query) {
 function getAnswer(ask) {
   try {
     const answers = filterItems(ask);
-    var response = answers.map(function (x, i) {
-      console.log(x.links[links.length], 'i');
-      return `${x.title}
 
-      ⏰ ${x.time}
+    let msg = answers.map(function (item) {
+      let res = `${item.title}\n⏰ ${item.time}\n🏟 ${item.place}\n👮🏻 ${item.referi}\nLinks Disponibles :\n ${
+        item.link1 == '' ? '' : '⮕' + ' ' + item.link1 + ' ' + '📲 💻'
+      }\n ${item.link2 == '' ? '' : '⮕' + ' ' + item.link2 + ' ' + '📲 💻'}\n${
+        item.link3 == '' ? '' : '⮕' + ' ' + item.link3 + ' ' + '📲 💻'
+      }\n${item.link4 == '' ? '' : '⮕' + ' ' + item.link4 + ' ' + '📲 💻'}\n${
+        item.link5 == '' ? '' : '⮕' + ' ' + item.link5 + ' ' + '📲 💻'
+      }\nVAMOS!`;
 
-      🏟 ${x.place}
-
-      👮🏻 ${x.referi}
-
-  Links Disponibles :
-
-      ⮕ ${x.links} 📲 💻
-
-  VAMOS!`;
+      return res;
     });
+    //console.log(msg, 'wawa');
 
-    console.log(response, 'response');
-
-    return response;
+    return msg;
   } catch (error) {
-    client.initialize();
+    //client.initialize();
   }
 }
 
