@@ -56,6 +56,7 @@ let newQuestions = [
     link5: '',
   },
 ];
+
 const SESSION_FILE = './session.json';
 let client;
 let sessionData;
@@ -63,14 +64,20 @@ let sessionData;
 function filterItems(query) {
   console.log(query);
 
-  return newQuestions
-    .filter(function (el) {
-      return el.question.toLowerCase() == query.toLowerCase();
-    })
-    .map(function (el) {
-      console.log(el, 'valido');
-      return el;
-    });
+  if (!query.toLowerCase().includes('links')) {
+    //console.log('nop');
+    return;
+  } else {
+    // console.log('hey');
+    return newQuestions
+      .filter(function (el) {
+        return el.question.toLowerCase() == query.toLowerCase();
+      })
+      .map(function (el) {
+        // console.log(el, 'valido');
+        return el;
+      });
+  }
 }
 
 function getAnswer(ask) {
@@ -105,9 +112,9 @@ const clearNumber = (number) => {
 const sendMessage = (number, text) =>
   new Promise((resolve, reject) => {
     number = number.replace('@c.us', '');
-    console.log(number, 'number1');
+    //console.log(number, 'number1');
     number = `${number}@c.us`;
-    console.log(number, 'number2');
+    // console.log(number, 'number2');
     const message = text;
     // const msg = client.sendMessage(number, message);
     //const msg = client.sendMessage(number, message);
@@ -178,13 +185,13 @@ const listenMessage = () => {
       let resp = getAnswer(body);
 
       let cha = from.indexOf('-');
-      console.log(cha);
+      //console.log(cha);
       let preNum = from.slice(0, cha);
-      console.log(preNum, 'preNum');
+      //console.log(preNum, 'preNum');
 
       let number = preNum.replace('@c.us', '');
       number = `${number}@c.us`;
-      console.log(number, 'number');
+      //console.log(number, 'number');
       if (!resp || resp.length === 0) {
         return;
       }
