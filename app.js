@@ -6,63 +6,65 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 const fs = require('fs');
 
-let newQuestions = [
-  {
-    question: 'links roma',
-    title: 'Manchester United 🆚 AS ROMA',
-    time: '3:00 PM',
-    place: 'Old Trafford',
-    referi: 'Carlos del Cerro',
-    link1: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
-    link2: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
-    link3: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
-    link4: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
-    link5: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
-  },
-  {
-    question: 'links roma2',
-    title: 'Manchester United 🆚 AS ROMA',
-    time: '3:10 PM',
-    place: 'Old Trafford2',
-    referi: 'Carlos del Cerro2',
-    link1: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
-    link2: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
-    link3: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
-    link4: '',
-    link5: '',
-  },
-  {
-    question: 'links roma3',
-    title: 'Manchester United 🆚 AS ROMA',
-    time: '3:15 PM',
-    place: 'Old Trafford2',
-    referi: 'Carlos del Cerro3',
-    link1: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
-    link2: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
-    link3: '',
-    link4: '',
-    link5: '',
-  },
-  {
-    question: '',
-    title: ' 🆚 ',
-    time: '',
-    place: '',
-    referi: '',
-    link1: '',
-    link2: '',
-    link3: '',
-    link4: '',
-    link5: '',
-  },
-];
+// let newQuestions = [
+//   {
+//     question: 'links roma',
+//     title: 'Manchester United 🆚 AS ROMA',
+//     time: '3:00 PM',
+//     place: 'Old Trafford',
+//     referi: 'Carlos del Cerro',
+//     link1: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
+//     link2: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
+//     link3: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
+//     link4: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
+//     link5: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
+//   },
+//   {
+//     question: 'links roma2',
+//     title: 'Manchester United 🆚 AS ROMA',
+//     time: '3:10 PM',
+//     place: 'Old Trafford2',
+//     referi: 'Carlos del Cerro2',
+//     link1: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
+//     link2: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
+//     link3: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
+//     link4: '',
+//     link5: '',
+//   },
+//   {
+//     question: 'links roma3',
+//     title: 'Manchester United 🆚 AS ROMA',
+//     time: '3:15 PM',
+//     place: 'Old Trafford2',
+//     referi: 'Carlos del Cerro3',
+//     link1: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
+//     link2: 'http://www.ovostreams.com/manchester-utd-vs-roma.php',
+//     link3: '',
+//     link4: '',
+//     link5: '',
+//   },
+//   {
+//     question: '',
+//     title: ' 🆚 ',
+//     time: '',
+//     place: '',
+//     referi: '',
+//     link1: '',
+//     link2: '',
+//     link3: '',
+//     link4: '',
+//     link5: '',
+//   },
+// ];
+
+let { newQuestions } = require('./questions');
 
 const SESSION_FILE = './session.json';
 let client;
 let sessionData;
 
 function filterItems(query) {
-  console.log(query);
+  //console.log(query);
 
   if (!query.toLowerCase().includes('links')) {
     //console.log('nop');
